@@ -1,0 +1,4835 @@
+{
+	"info": {
+		"_postman_id": "a6e154be-6b29-4b46-8a52-ce41a07de9a5",
+		"name": "Infakt - API Documentation",
+		"description": "API inFakt\n\nZmienne:\n- url\n- api_key\n- basic_auth_username\n- basic_auth_password",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19896982"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Create Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"client_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"client\": {\n       \"company_name\": \"{{$randomCompanyName}}\",\n       \"street\": \"{{$randomStreetName}}\",\n       \"street_number\": \"16\",\n       \"flat_number\": null,\n       \"city\": \"Kraków\",\n       \"country\": \"PL\",\n       \"postal_code\": \"41-235\",\n       \"same_forward_address\": true\n   }\n}\n"
+						},
+						"url": {
+							"raw": "{{url}}/clients.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client to delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"client_id_to_delete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client\": {\n        \"company_name\": \"Company to delete\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/clients.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/clients/{{client_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"{{client_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "company_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Clients",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/clients.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients.json"
+							],
+							"query": [
+								{
+									"key": "q[city_eq]",
+									"value": "Kraków",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "company_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "company_name",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"client\":{\"company_name\":\"{{$randomCompanyName}} - Edited\"}}"
+						},
+						"url": {
+							"raw": "{{url}}/clients/{{client_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"{{client_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete client",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/clients/{{client_id_to_delete}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"{{client_id_to_delete}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/clients/#def"
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"product_id\", jsonData.id);",
+									"postman.setEnvironmentVariable(\"product_name\", jsonData.name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"type": "text",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\":{\n        \"name\": \"{{$randomProductName}}\",\n        \"pkwiu\": \"62.01.11\",\n        \"unit\": \"szt.\",\n        \"net_price\": \"40000\",\n        \"tax_price\": \"9200\",\n        \"gross_price\": \"49200\",\n        \"tax_symbol\": \"23\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product to delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"product_id_to_delete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"type": "text",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\": {\n        \"name\":\"Product to delete\",\n        \"tax_symbol\": \"23\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/{{product_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get products",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products.json"
+							],
+							"query": [
+								{
+									"key": "q[name_eq]",
+									"value": "{{product_name}}",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"type": "text",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"product\": {\n       \"purchase_unit_net_price\": \"35000\",\n       \"purchase_unit_gross_price\": \"43050\"\n   }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/{{product_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"type": "text",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/{{product_id_to_delete}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{product_id_to_delete}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/products/#def"
+		},
+		{
+			"name": "Bank account",
+			"item": [
+				{
+					"name": "Create bank account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"bank_account_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_account\": {\n        \"bank_name\": \"Example Bank\",\n        \"account_number\": \"{{$randomBankAccountIban}}\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/bank_accounts.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create bank account to delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"bank_account_id_to_delete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_account\": {\n        \"bank_name\": \"Example Bank 1\",\n        \"account_number\": \"{{$randomBankAccountIban}}\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/bank_accounts.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bank account",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/bank_accounts/{{bank_account_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts",
+								"{{bank_account_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bank accounts",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/bank_accounts.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts.json"
+							],
+							"query": [
+								{
+									"key": "q[bank_name_eq]",
+									"value": "Example Bank",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "bank_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "bank_name",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesuniecie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update bank account",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_account\": {\n        \"bank_name\": \"Edit bank - Edited\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/bank_accounts/{{bank_account_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts",
+								"{{bank_account_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete bank account",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/bank_accounts/{{bank_account_id_to_delete}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bank_accounts",
+								"{{bank_account_id_to_delete}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/bank_accounts/#def"
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Create invoice",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"invoice_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"invoice\":{\n  \"payment_method\":\"delivary\",\n  \"client_company_name\": \"company\", \n  \"services\":[\n    {\n       \"name\": \"Przykładowa Usługa\", \n       \"net_price\": 6623, \n       \"pkwiu\": \"84.11.12.0\", \n       \"unit_net_price\": 6623, \n       \"tax_symbol\": 23 \n    }\n  ]\n}}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create invoice to delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"invoice_id_to_delete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoice\": {\n        \"payment_method\": \"transfer\",\n        \"bank_account\": \"70102010130000010200026526\",\n        \"client_company_name\": \"company\",\n        \"services\": [\n            {\n                \"name\": \"To delete\",\n                \"pkwiu\": \"84.11.12.0\", \n                \"net_price\": 6623,\n                \"unit_net_price\": 6623,\n                \"tax_symbol\": 23\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "status",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get invoices",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices.json"
+							],
+							"query": [
+								{
+									"key": "q[bank_name_eq]",
+									"value": "mbank",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "bank_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "odrer",
+									"value": "payment_date",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"invoice\":{\"payment_method\":\"transfer\"}}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get next number invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/next_number.json?kind=vat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"next_number.json"
+							],
+							"query": [
+								{
+									"key": "kind",
+									"value": "vat",
+									"description": "rodzaj faktury"
+								},
+								{
+									"key": "date",
+									"value": "2022-05-22",
+									"description": "data wystawienia",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download pdf invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"document_type\": \"original\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/pdf.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"pdf.json"
+							],
+							"query": [
+								{
+									"key": "documet_type",
+									"value": "original",
+									"description": "rodzaj dokumentu",
+									"disabled": true
+								},
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "język dokumentu",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver via emai invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"print_type\": \"original\",\n    \"recipient\": \"{{email}}\",\n    \"locale\" : \"en\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/deliver_via_email.json?print_type=original",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"deliver_via_email.json"
+							],
+							"query": [
+								{
+									"key": "recipient",
+									"value": "",
+									"description": "adres email odbiorcy",
+									"disabled": true
+								},
+								{
+									"key": "send_copy",
+									"value": "true",
+									"description": "czy wysłać na adres właściciela",
+									"disabled": true
+								},
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "język dokumentu",
+									"disabled": true
+								},
+								{
+									"key": "print_type",
+									"value": "original",
+									"description": "rodzaj dokumentu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver via post invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"print_type\":\"original\"}"
+						},
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/deliver_via_post.json?locale=en&print_type=original",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"deliver_via_post.json"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "język dokumentu"
+								},
+								{
+									"key": "print_type",
+									"value": "original",
+									"description": "rodzaj dokumentu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set quick payment link invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/quick_payments.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"quick_payments.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get quick payment link invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/quick_payments.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"quick_payments.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete quick payment link invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/quick_payments.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"quick_payments.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set as paid invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/paid.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"paid.json"
+							],
+							"query": [
+								{
+									"key": "paid_date",
+									"value": "2022-05-31",
+									"description": "data opłacenia",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set share links invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/share_links.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"share_links.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get share links invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/share_links.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"share_links.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prolong share links invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/share_links/prolong.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"share_links",
+								"prolong.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete share links invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/share_links.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"share_links.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachments inovice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var jsonData = JSON.parse(responseBody);",
+									"// postman.setEnvironmentVariable(\"attachments_id\", jsonData.entities[1].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/attachments.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"attachments.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachment inovice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id}}/attachments/{{attachments_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id}}",
+								"attachments",
+								"{{attachments_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/invoices/{{invoice_id_to_delete}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoices",
+								"{{invoice_id_to_delete}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/invoices/#def"
+		},
+		{
+			"name": "Corrective Invoice",
+			"item": [
+				{
+					"name": "Create corrective invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"corrective_invoice_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"corrective_invoice\": {\n        \"payment_method\": \"other\",\n        \"client_id\": {{client_id}},\n        \"corrected_invoice_number\": \"{{invoice_id}}\",\n        \"correction_reason\": \"other\",\n        \"services\": [\n            {\n                \"name\": \"Przykładowa Usługa\",\n                \"unit_net_price\": 6623,\n                \"group\": \"1\",\n                \"quantity\": \"1.0\",\n                \"correction\": false,\n                \"tax_symbol\": \"23\",\n                \"pkwiu\": \"84.11.12.0\"\n            },\n            {\n                \"name\": \"Przykładowa Usługa - korekta\",\n                \"unit_net_price\": 6600,\n                \"group\": \"1\",\n                \"quantity\": \"1.0\",\n                \"correction\": true,\n                \"tax_symbol\": \"23\",\n                \"pkwiu\": \"84.11.12.0\"\n            },\n            {\n                \"name\": \"Przykładowy produkt\",\n                \"unit_net_price\": 6623,\n                \"group\": \"2\",\n                \"quantity\": \"1.0\",\n                \"correction\": false,\n                \"tax_symbol\": \"23\",\n                \"pkwiu\": \"46.11.12\"\n            },\n            {\n                \"name\": \"Przykładowy produkt - korekta\",\n                \"unit_net_price\": 6623,\n                \"group\": \"2\",\n                \"quantity\": \"0\",\n                \"correction\": true,\n                \"tax_symbol\": \"23\",\n                \"pkwiu\": \"46.11.12\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create corrective invoice to delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"corrective_invoice_id_to_delete\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"corrective_invoice\": {\n    \"payment_method\": \"cash\",\n    \"corrected_invoice_number\": \"123\",\n    \"client_company_name\": \"Dorota Jas\",\n    \"client_street\": \"Zofii Nałkowskiej 22D/22\",\n    \"client_post_code\": \"60-573\",\n    \"client_country\": \"PL\",\n    \"client_city\": \"Poznań\",\n    \"client_email\": \"{{email}}}}\",\n    \"services\": [\n      {\n        \"name\": \"Przykładowa Usługa\",\n        \"gross_price\": 6623,\n        \"group\": \"1606079791\",\n        \"correction\": false,\n        \"tax_symbol\": \"23\"\n      },\n      {\n        \"name\": \"Przykładowa Usługa - korekta\",\n        \"gross_price\": 6623,\n        \"group\": \"1606079791\",\n        \"correction\": true,\n        \"tax_symbol\": \"23\"\n      }\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get corrective invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "corrected_invoice_date",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get corrective invoices",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/corrective_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices.json"
+							],
+							"query": [
+								{
+									"key": "q[number_eq]",
+									"value": "1/KOR/04/2022",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "number",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "invoice_date",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update corrective invoices",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"corrective_invoice\":{\"payment_method\":\"transfer\"}}"
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download pdf corrective invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"document_type\": \"original\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}/pdf.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}",
+								"pdf.json"
+							],
+							"query": [
+								{
+									"key": "document_type",
+									"value": "original",
+									"description": "rodzaj dokumentu",
+									"disabled": true
+								},
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "język dokumentu",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set as paid corrective invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}/paid.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}",
+								"paid.json"
+							],
+							"query": [
+								{
+									"key": "paid_date",
+									"value": "2022-06-01",
+									"description": "data opłacenia",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set as sign corrective invoice - deprecated",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}/sign.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}",
+								"sign.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver via email corrective invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"print_type\": \"original\",\n    \"recipient\": \"{{email}}\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id}}/deliver_via_email.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id}}",
+								"deliver_via_email.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete corrective invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/corrective_invoices/{{corrective_invoice_id_to_delete}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"corrective_invoices",
+								"{{corrective_invoice_id_to_delete}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/corrective_invoices/#def"
+		},
+		{
+			"name": "Country",
+			"item": [
+				{
+					"name": "Get countries",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/countries.json?fields=continent&odrer=polish_name&offset=100&limit=50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"countries.json"
+							],
+							"query": [
+								{
+									"key": "q[english_name_eq]",
+									"value": "Poland",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "continent",
+									"description": "częściowe odpowiedzi"
+								},
+								{
+									"key": "odrer",
+									"value": "polish_name",
+									"description": "sortowanie"
+								},
+								{
+									"key": "offset",
+									"value": "100",
+									"description": "przesunięcie"
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "limit odpowiedzi"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/countries/#def"
+		},
+		{
+			"name": "Vat Rate",
+			"item": [
+				{
+					"name": "Get vat rates",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_rates.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_rates.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/vat_rates/#def"
+		},
+		{
+			"name": "Vat Exemption Reason",
+			"item": [
+				{
+					"name": "Get vat exemptions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_exemptions.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_exemptions.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get vat exemption",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_exemptions/1.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_exemptions",
+								"1.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/vat_exemptions/#def"
+		},
+		{
+			"name": "Income Tax",
+			"item": [
+				{
+					"name": "Get income taxes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"income_taxes_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/income_taxes.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"income_taxes.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "status",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "period",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "limit wyświetlania",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get income tax",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/income_taxes/{{income_taxes_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"income_taxes",
+								"{{income_taxes_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_type",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/income_taxes/#def"
+		},
+		{
+			"name": "Vat Eu Tax",
+			"item": [
+				{
+					"name": "Get vat eu taxes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"vat_eu_tax_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_eu_taxes.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_eu_taxes.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period",
+									"description": "częsciowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "period",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesuniecie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get vat eu tax",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_eu_taxes/{{vat_eu_tax_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_eu_taxes",
+								"{{vat_eu_tax_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/vat_taxes/#def"
+		},
+		{
+			"name": "Vat Tax - deprecated",
+			"item": [
+				{
+					"name": "Get vat taxes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var jsonData = JSON.parse(responseBody);",
+									"// postman.setEnvironmentVariable(\"vat_tax_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_taxes.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_taxes.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_name",
+									"description": "częsciowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "period",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "5",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get vat tax",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vat_taxes/{{vat_tax_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vat_taxes",
+								"{{vat_tax_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/vat_taxes/#def"
+		},
+		{
+			"name": "saf_v7_file",
+			"item": [
+				{
+					"name": "Get saf_v7_files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"saf_v7_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/saf_v7_files.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"saf_v7_files.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "period",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesuniecie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get saf_v7_file",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/saf_v7_files/{{saf_v7_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"saf_v7_files",
+								"{{saf_v7_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "payment_date",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/saf_v7_files/#def"
+		},
+		{
+			"name": "Insurance Fee",
+			"item": [
+				{
+					"name": "Get insurance fees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"insurance_fee_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/insurance_fees.json?fields=period_name&order=payment_date&offset=0&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"insurance_fees.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_name",
+									"description": "częściowe odpowiedzi"
+								},
+								{
+									"key": "order",
+									"value": "payment_date",
+									"description": "sortowanie"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get insurance fee",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/insurance_fees/{{insurance_fee_id}}.json?fields=payment_date",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"insurance_fees",
+								"{{insurance_fee_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "payment_date",
+									"description": "częściowe odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/insurance_fees/#def"
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Get books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"book_id\", jsonData.entities[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/books.json?fields=period_name&order=period&offset=0&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period_name",
+									"description": "częściowe odpowiedzi"
+								},
+								{
+									"key": "order",
+									"value": "period",
+									"description": "sortowanie"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/books/{{book_id}}.json?fields=period",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books",
+								"{{book_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "period",
+									"description": "częściowe odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/books/#def"
+		},
+		{
+			"name": "Moss Vat Rate",
+			"item": [
+				{
+					"name": "Get moss vat rates",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_vat_rates.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_vat_rates.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/moss_vat_rates/#def"
+		},
+		{
+			"name": "Moss Invoice - depreceted",
+			"item": [
+				{
+					"name": "Create MOSS invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"moss_invoice_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"moss_invoice\": {\n        \"country\": \"AT\",\n        \"service_type\": \"electronic\",\n        \"currency\": \"EUR\",\n        \"tax_rate\": 20,\n        \"service_place_primary\": \"IP: 127.0.0.1\",\n        \"issue_date\": \"2022-05-01\",\n        \"service_date\": \"2022-05-01\",\n        \"payment_date\": \"2022-05-01\",\n        \"services\": [\n            {\n                \"name\": \"Prod - 1\",\n                \"unit_price\": 25000\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/moss_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MOSS invoices",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices.json"
+							],
+							"query": [
+								{
+									"key": "q[counrty_eq]",
+									"value": "DE",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "number",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "payment_date",
+									"description": "sortowanie",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "limit odpowiedzi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices/{{moss_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"{{moss_invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Print MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices/{{moss_invoice_id}}/pdf.json?document_type=duplicate&locale=en",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"{{moss_invoice_id}}",
+								"pdf.json"
+							],
+							"query": [
+								{
+									"key": "document_type",
+									"value": "duplicate"
+								},
+								{
+									"key": "locale",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices/{{moss_invoice_id}}/deliver_via_email.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"{{moss_invoice_id}}",
+								"deliver_via_email.json"
+							],
+							"query": [
+								{
+									"key": "recipient",
+									"value": null,
+									"description": "adres odbiorcy",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"moss_invoice\": {\n        \"country\": \"AT\",\n        \"service_type\": \"electronic\",\n        \"currency\": \"EUR\",\n        \"tax_rate\": 20,\n        \"service_place_primary\": \"IP: 127.0.0.1\",\n        \"issue_date\": \"2020-06-01\",\n        \"service_date\": \"2020-06-01\",\n        \"payment_date\": \"2020-06-01\",\n        \"services\": [\n            {\n                \"name\": \"Prod - 1\",\n                \"unit_price\": 25000\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/moss_invoices/{{moss_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"{{moss_invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET next no MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices/next_number.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"next_number.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MOSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/moss_invoices/{{moss_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moss_invoices",
+								"{{moss_invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/moss_invoices/#def"
+		},
+		{
+			"name": "Oss Invoice",
+			"item": [
+				{
+					"name": "Create OSS invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"oss_invoice_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"oss_invoice\": {\n          \"country\": \"AT\",\n          \"number\": \"{{$randomAlphaNumeric}}\",\n          \"check_duplicate_number\": false,\n          \"client_email\": \"{{email}}\",\n          \"client_name\": \"Boyer - Schumm\",\n          \"client_street\": \"Marquis Plaza\",\n          \"client_street_number\": \"3016\",\n          \"client_flat_number\": \"\",\n          \"client_post_code\": \"22-222\",\n          \"client_city\": \"South Harryville\",\n          \"sale_type\": \"merchandise\",\n          \"currency\": \"EUR\",\n          \"service_place_primary\": \"185 Jaqueline Inlet\",\n          \"service_place_secondary\": \"Labadie, Bergstrom and Bahringer\",\n          \"recipient_signature\": \"multi-byte auxiliary facilitate Chair solid\",\n          \"seller_signature\": \"seller_signature\",\n          \"comments\": \"haptic SSL HDD Ohio Future\",\n          \"advance_price\": 1212,\n          \"services\": [\n               {\n                \"name\": \"Prod - 1\",\n                \"tax_rate\": 20,\n                \"unit_net_price\": 25000,\n                \"quantity\": 4,\n                \"additional_price\": 300,\n                \"flat_rate_tax_symbol\": \"5.5\"\n            },\n            {\n                \"name\": \"Prod - 2\",\n                \"tax_rate\": 20,\n                \"net_price\": 25000,\n                \"quantity\": 3,\n                \"additional_price\": 200\n            },\n            {\n                \"name\": \"Prod - 3\",\n                \"tax_rate\": 20,\n                \"gross_price\": 25000,\n                \"quantity\": 3,\n                \"additional_price\": 0\n            }\n          ]\n      }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/oss_invoices.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET OSS invoices",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices.json?order=country&offset=0&limit=24",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices.json"
+							],
+							"query": [
+								{
+									"key": "q[country_eq]",
+									"value": "AT",
+									"description": "wyszukiwanie",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "client_name",
+									"description": "częściowe odpowiedzi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "country",
+									"description": "sortowanie"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "przesunięcie"
+								},
+								{
+									"key": "limit",
+									"value": "24",
+									"description": "limit odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET OSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices/{{oss_invoice_id}}.json?fields=country",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices",
+								"{{oss_invoice_id}}.json"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "country",
+									"description": "częściowe odpowiedzi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Print OSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices/{{oss_invoice_id}}/pdf.json?locale=en",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices",
+								"{{oss_invoice_id}}",
+								"pdf.json"
+							],
+							"query": [
+								{
+									"key": "document_type",
+									"value": "duplicate",
+									"disabled": true
+								},
+								{
+									"key": "locale",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send OSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices/{{oss_invoice_id}}/deliver_via_email.json?recipient={{email}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices",
+								"{{oss_invoice_id}}",
+								"deliver_via_email.json"
+							],
+							"query": [
+								{
+									"key": "recipient",
+									"value": "{{email}}",
+									"description": "adres email odbiorcy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET next no OSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices/next_number.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices",
+								"next_number.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE OSS invoice",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/oss_invoices/{{oss_invoice_id}}.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oss_invoices",
+								"{{oss_invoice_id}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/oss_invoices/#def"
+		},
+		{
+			"name": "Flat Rate",
+			"item": [
+				{
+					"name": "Get flat rate",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/flat_rates.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"flat_rates.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/flat_rates/#def"
+		},
+		{
+			"name": "Transaction Kind",
+			"item": [
+				{
+					"name": "Get transaction kinds",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/transaction_kinds.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transaction_kinds.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/transaction_kinds/#def"
+		},
+		{
+			"name": "Documents Markings :: Income",
+			"item": [
+				{
+					"name": "Get DocumentsMarkings::Incomes",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/documents_markings/incomes.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"documents_markings",
+								"incomes.json"
+							],
+							"query": [
+								{
+									"key": "q[code_eq]",
+									"value": "EE",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get DocumentsMarkings::Income",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/documents_markings/incomes/1.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"documents_markings",
+								"incomes",
+								"1.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get DocumentsMarkings::Income Selected",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/documents_markings/incomes/selected.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"documents_markings",
+								"incomes",
+								"selected.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/incomes_document_markings/#def"
+		},
+		{
+			"name": "Gtu",
+			"item": [
+				{
+					"name": "Get gtus",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/gtus.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"gtus.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get gtu",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/gtus/1.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"gtus",
+								"1.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get gtu selected",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basic_auth_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basic_auth_username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-inFakt-ApiKey",
+								"value": "{{api_key}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/gtus/selected.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"gtus",
+								"selected.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "https://www.infakt.pl/developers/gtus/#def"
+		}
+	]
+}
